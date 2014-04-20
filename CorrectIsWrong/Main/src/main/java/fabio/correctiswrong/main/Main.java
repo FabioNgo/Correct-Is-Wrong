@@ -1,4 +1,4 @@
-package fabio.correctiswrong.game;
+package fabio.correctiswrong.main;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -6,12 +6,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class MainInterface extends ActionBarActivity {
+public class Main extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_interface);
+        setContentView(R.layout.main);
     }
 
 
@@ -19,7 +19,7 @@ public class MainInterface extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main_interface, menu);
+        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
