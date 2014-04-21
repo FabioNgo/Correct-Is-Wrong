@@ -20,15 +20,19 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Author: Fabio Ngo - 2014"
+        android:textAppearance="@android:style/TextAppearance.Large"
+        android:text=" Fabio Ngo - 2014"
         android:id="@+id/textView"
         android:layout_alignTop="@+id/imageView"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:textColor="#ffffffff"
+        android:textStyle="bold"
+        android:typeface="sans"
+        android:textSize="30dp"/>
 
     <ImageButton
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="New Game"
         android:id="@+id/newGame"
         android:src="@drawable/start"
@@ -38,7 +42,7 @@
         android:layout_marginBottom="54dp"/>
 
     <ImageButton
-        android:layout_width="100dp"
+        android:layout_width="wrap_content"
         android:layout_height="100dp"
         android:text="Instruction"
         android:id="@+id/instruction"

@@ -3,6 +3,7 @@ package fabio.correctiswrong.main;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +11,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Chronometer;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -45,6 +48,7 @@ public class Game extends Activity {
     Runnable runnable;
     Handler handler;
     boolean win;
+    Chronometer chronometer;
 
     public Game () {
         TimeLimit = 5;
@@ -62,6 +66,8 @@ public class Game extends Activity {
 
         super.onCreate(savedInstanceState);
         //read highScore
+//        chronometer = (Chronometer)findViewById(R.id.chronometer);
+//        chronometer.setBase(SystemClock.elapsedRealtime());
          handler = new Handler();
         runnable = new Runnable() {
 
@@ -132,9 +138,7 @@ public class Game extends Activity {
         }
         setContentView(R.layout.game);
         TextView scoreText = (TextView)findViewById(R.id.score);
-        scoreText.setText("Score: "+score);
-        TextView highScoreText = (TextView)findViewById(R.id.highscore);
-        highScoreText.setText("High Score: "+highScore);
+        scoreText.setText(score+"");
         startGame = (Button)findViewById(R.id.start);
         buttonLeft = (Button)findViewById(R.id.answer1);
         buttonLeft.setOnClickListener(new View.OnClickListener() {
@@ -192,14 +196,13 @@ public class Game extends Activity {
     }
 
     private void startGame () {
+//        chronometer.start();
         inGame = true;
         win = false;
         time = TimeLimit;
         score = 0;
         TextView scoreText = (TextView)findViewById(R.id.score);
-        scoreText.setText("Score: "+ String.valueOf(score));
-        TextView highScoreText = (TextView)findViewById(R.id.highscore);
-        highScoreText.setText("High Score: "+highScore);
+        scoreText.setText(String.valueOf(score));
         current = 0;
         buttonLeft.setBackgroundColor(Color.BLACK);
         buttonRight.setBackgroundColor(Color.BLACK);
@@ -228,7 +231,7 @@ public class Game extends Activity {
             b.setText("You Win. Tap to start a new game");
         }else{
             Button b = (Button)findViewById(R.id.start);
-            b.setText("You loose. Tap to retry");
+            b.setText("You lose. Tap to retry");
         }
         if(highScore<score){
             highScore = score;
@@ -250,7 +253,7 @@ public class Game extends Activity {
         score++;
         time = TimeLimit;
         TextView scoreText = (TextView)findViewById(R.id.score);
-        scoreText.setText("Score: "+ String.valueOf(score));
+        scoreText.setText(String.valueOf(score));
 
         Question cur;
         try {
