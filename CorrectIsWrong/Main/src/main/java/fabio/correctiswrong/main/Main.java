@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import java.io.File;
@@ -31,7 +32,7 @@ public class Main extends Activity {
         //copyAssets();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        Button newGame = (Button)findViewById(R.id.newGame);
+        ImageButton newGame = (ImageButton)findViewById(R.id.newGame);
         newGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {

@@ -6,7 +6,8 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="fabio.correctiswrong.main.Main">
+    tools:context="fabio.correctiswrong.main.Main"
+    android:background="#ff0099cc">
 
     <ImageView
         android:layout_width="match_parent"
@@ -20,28 +21,31 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Author: Fabio Ngo"
+        android:text="Author: Fabio Ngo - 2014"
         android:id="@+id/textView"
         android:layout_alignTop="@+id/imageView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="104dp"/>
+        android:layout_centerHorizontal="true"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageButton
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:text="New Game"
         android:id="@+id/newGame"
-        android:layout_alignParentBottom="false"
-        android:layout_centerInParent="true"
-        android:layout_below="@+id/imageView"
-        android:layout_marginTop="-120dp"/>
+        android:src="@drawable/start"
+        android:background="#00ff0003"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/textView"
+        android:layout_marginBottom="54dp"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageButton
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:text="Instruction"
         android:id="@+id/instruction"
         android:layout_alignParentBottom="false"
-        android:layout_alignLeft="@+id/newGame"
-        android:layout_below="@+id/newGame"/>
+        android:layout_alignTop="@+id/newGame"
+        android:layout_alignRight="@+id/textView"
+        android:background="#00ff0003"
+        android:src="@drawable/help"/>
+
 </RelativeLayout>
