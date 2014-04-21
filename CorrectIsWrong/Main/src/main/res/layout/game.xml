@@ -76,4 +76,12 @@
         android:paddingTop="10dp"
         android:paddingRight="10dp"
         android:paddingBottom="10dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start Game"
+        android:id="@+id/start"
+        android:layout_below="@+id/highscore"
+        android:layout_centerHorizontal="true"/>
 </RelativeLayout>
