@@ -33,16 +33,29 @@ import java.util.Vector;
 
 public class Game extends ActionBarActivity {
     Vector<Question> questions;
-    int score = 0;
-    int highScore = 0;
-    int current = 0;
-    boolean left = false;
-    boolean inGame = false;
+    int score;
+    int highScore;
+    int current;
+    boolean left;
+    boolean inGame;
     Button buttonLeft, buttonRight,startGame;
-    int time = 3;
-    int TimeLimit = 3;
+    int time;
+    int TimeLimit;
     Runnable runnable;
     Handler handler;
+    boolean win;
+
+    public Game () {
+        TimeLimit = 5;
+        time = TimeLimit;
+        inGame = false;
+        left = false;
+        highScore = 0;
+        score = 0;
+        current = 0;
+        win = false;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -105,7 +118,7 @@ public class Game extends ActionBarActivity {
         InputStream inputStream = null;
         try {
             inputStream = getAssets().open("QuestionBank.ciw");
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"UTF-8"));
             if (bufferedReader!=null) {
                 String temp;
                 while ((temp = bufferedReader.readLine()) != null) {
@@ -127,12 +140,13 @@ public class Game extends ActionBarActivity {
             @Override
             public void onClick (View v) {
                 if(inGame){
-                    if(left){
+                    if(!left){
                         buttonLeft.setBackgroundColor(Color.GREEN);
                         nextQuestion();
 
                     }else{
                         buttonLeft.setBackgroundColor(Color.RED);
+                        win = false;
                         endGame();
                     }
                 }
@@ -145,11 +159,12 @@ public class Game extends ActionBarActivity {
             @Override
             public void onClick (View v) {
                 if(inGame) {
-                    if(!left){
+                    if(left){
                         buttonRight.setBackgroundColor(Color.GREEN);
                         nextQuestion();
                     }else{
                         buttonRight.setBackgroundColor(Color.RED);
+                        win =false;
                         endGame();
                     }
                 }
@@ -177,12 +192,17 @@ public class Game extends ActionBarActivity {
 
     private void startGame () {
         inGame = true;
-        runnable.run();
+
         time = TimeLimit;
         score = 0;
+        TextView scoreText = (TextView)findViewById(R.id.score);
+        scoreText.setText("Score: "+ String.valueOf(score));
+        TextView highScoreText = (TextView)findViewById(R.id.highscore);
+        highScoreText.setText("High Score: "+highScore);
         current = 0;
         buttonLeft.setBackgroundColor(Color.BLACK);
         buttonRight.setBackgroundColor(Color.BLACK);
+        runnable.run();
         Collections.shuffle(questions);
         Question cur = questions.get(current);
         TextView question = (TextView)findViewById(R.id.QuestionContent);
@@ -201,8 +221,14 @@ public class Game extends ActionBarActivity {
 
     private void endGame () {
         inGame = false;
-
-
+        handler.removeCallbacks(runnable);
+        if(win){
+            Button b = (Button)findViewById(R.id.start);
+            b.setText("You Win. Tap to start a new game");
+        }else{
+            Button b = (Button)findViewById(R.id.start);
+            b.setText("You loose. Tap to retry");
+        }
         if(highScore<score){
             highScore = score;
             File file = new File(getExternalFilesDir(ACCESSIBILITY_SERVICE),"score.ciw");
@@ -229,6 +255,7 @@ public class Game extends ActionBarActivity {
         try {
              cur = questions.get(current);
         }catch (Exception e){
+            win = true;
             endGame();
             return;
         }
