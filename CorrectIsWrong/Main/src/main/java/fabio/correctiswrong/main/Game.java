@@ -1,6 +1,7 @@
 package fabio.correctiswrong.main;
 
 import android.graphics.Color;
+import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,9 +22,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Writer;
+import java.sql.Time;
 import java.util.Collections;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.Vector;
 
 
@@ -34,13 +38,40 @@ public class Game extends ActionBarActivity {
     int current = 0;
     boolean left = false;
     boolean inGame = false;
-    Button buttonLeft, buttonRight;
+    Button buttonLeft, buttonRight,startGame;
+    int time = 3;
+    int TimeLimit = 3;
+    Runnable runnable;
+    Handler handler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         //read highScore
+         handler = new Handler();
+        runnable = new Runnable() {
 
+            public void run() {
+
+
+                    doStuff();
+                if(time >0) {
+                    handler.postDelayed(this, 1000);
+                }
+                if(time <= 0){
+                    handler.removeCallbacks(runnable);
+                    endGame();
+                }
+
+  /*
+   * Now register it for running next time
+   */
+
+
+            }
+
+
+        };
         File file = new File(getExternalFilesDir(ACCESSIBILITY_SERVICE),"score.ciw");
         System.out.println(file.getAbsolutePath());
         try {
@@ -90,7 +121,7 @@ public class Game extends ActionBarActivity {
         scoreText.setText("Score: "+score);
         TextView highScoreText = (TextView)findViewById(R.id.highscore);
         highScoreText.setText("High Score: "+highScore);
-        final Button startGame = (Button)findViewById(R.id.start);
+        startGame = (Button)findViewById(R.id.start);
         buttonLeft = (Button)findViewById(R.id.answer1);
         buttonLeft.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,14 +160,26 @@ public class Game extends ActionBarActivity {
         startGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
-                startGame();
-
+                if(!inGame) {
+                    startGame();
+                }
             }
         });
     }
 
+    private void doStuff () {
+        time--;
+        startGame.setText(String.valueOf(time)+"s");
+
+
+
+    }
+
     private void startGame () {
         inGame = true;
+        runnable.run();
+        time = TimeLimit;
+        score = 0;
         current = 0;
         buttonLeft.setBackgroundColor(Color.BLACK);
         buttonRight.setBackgroundColor(Color.BLACK);
@@ -178,6 +221,7 @@ public class Game extends ActionBarActivity {
 
     private void nextQuestion () {
         score++;
+        time = TimeLimit;
         TextView scoreText = (TextView)findViewById(R.id.score);
         scoreText.setText("Score: "+ String.valueOf(score));
 
