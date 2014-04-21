@@ -1,5 +1,6 @@
 package fabio.correctiswrong.main;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
@@ -31,7 +32,7 @@ import java.util.TimerTask;
 import java.util.Vector;
 
 
-public class Game extends ActionBarActivity {
+public class Game extends Activity {
     Vector<Question> questions;
     int score;
     int highScore;
@@ -86,14 +87,14 @@ public class Game extends ActionBarActivity {
 
         };
         File file = new File(getExternalFilesDir(ACCESSIBILITY_SERVICE),"score.ciw");
-        System.out.println(file.getAbsolutePath());
+        //System.out.println(file.getAbsolutePath());
         try {
             FileInputStream fileInputStream = new FileInputStream(file);
             try {
                 int temp;
                 do {
                     temp = fileInputStream.read();
-                    System.out.println(temp);
+                    //System.out.println(temp);
                     if (temp != -1) {
                         highScore = highScore * 255 + temp;
                     }
@@ -192,7 +193,7 @@ public class Game extends ActionBarActivity {
 
     private void startGame () {
         inGame = true;
-
+        win = false;
         time = TimeLimit;
         score = 0;
         TextView scoreText = (TextView)findViewById(R.id.score);
