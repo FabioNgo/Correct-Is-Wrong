@@ -3,8 +3,6 @@ package fabio.correctiswrong.main;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Handler;
-import android.os.SystemClock;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
