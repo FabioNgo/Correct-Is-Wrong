@@ -11,14 +11,14 @@
         android:id="@+id/imageView"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/background"/>
+        android:src="@drawable/backgroundmain"/>
 
     <ImageButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="New Game"
         android:id="@+id/newGame"
         android:src="@drawable/start"
+
         android:background="#00ff0003"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="54dp"
