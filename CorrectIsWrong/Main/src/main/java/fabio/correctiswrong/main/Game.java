@@ -1,18 +1,20 @@
 package fabio.correctiswrong.main;
 
 import android.app.Activity;
-import android.graphics.Color;
-import android.os.Handler;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Chronometer;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.BufferedReader;
@@ -20,18 +22,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Writer;
-import java.sql.Time;
+import java.io.OutputStream;
 import java.util.Collections;
 import java.util.Random;
-import java.util.Scanner;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.Vector;
 
 
@@ -54,10 +50,11 @@ public class Game extends Activity {
     TextView gameOver;
     int screenHeight;
     int screenWidth;
+    Button share;
 
     public Game () {
 
-        TimeLimit = 5;
+        TimeLimit = 2;
         time = TimeLimit;
         inGame = false;
         left = false;
@@ -85,6 +82,10 @@ public class Game extends Activity {
          * Timer
          */
         timerText = (TextView)findViewById(R.id.time);
+        Typeface timetf = Typeface.createFromAsset(getAssets(),
+                "hlcomibm.ttf");
+
+        timerText.setTypeface(timetf);
         timerText.setHeight(screenHeight/4);
         handler = new Handler();
         runnable = new Runnable() {
@@ -140,11 +141,9 @@ public class Game extends Activity {
         try {
             inputStream = getAssets().open("QuestionBank.ciw");
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream,"UTF-8"));
-            if (bufferedReader!=null) {
-                String temp;
-                while ((temp = bufferedReader.readLine()) != null) {
-                    questions.add(new Question(temp));
-                }
+            String temp;
+            while ((temp = bufferedReader.readLine()) != null) {
+                questions.add(new Question(temp));
             }
             bufferedReader.close();
         } catch (IOException e) {
@@ -157,40 +156,76 @@ public class Game extends Activity {
         gameOver = (TextView)findViewById(R.id.gameOver);
         gameOver.setHeight(3*screenHeight/4);
         gameOver.setVisibility(View.INVISIBLE);
+        Typeface gameOvertf = Typeface.createFromAsset(getAssets(),
+                "seguibl.ttf");
+
+        gameOver.setTypeface(gameOvertf);
         /**
          * Question Text
          */
         question = (TextView)findViewById(R.id.QuestionContent);
         question.setHeight(screenHeight/4);
+        Typeface questiontf = Typeface.createFromAsset(getAssets(),
+                "Ubuntu-B.ttf");
+
+        question.setTypeface(questiontf);
         /**
          * Score Text
          */
         TextView scoreText = (TextView)findViewById(R.id.score);
         scoreText.setHeight(screenHeight/8);
         scoreText.setWidth(screenWidth/3);
+        Typeface scoretf = Typeface.createFromAsset(getAssets(),
+                "ostrich-regular.ttf");
+        scoreText.setTypeface(scoretf);
+
         TextView newScore = (TextView)findViewById(R.id.newScore);
         newScore.setHeight(screenHeight/8);
         newScore.setWidth(screenWidth/3);
+        Typeface scoreTexttf = Typeface.createFromAsset(getAssets(),
+                "ostrich-regular.ttf");
+        newScore.setTypeface(scoreTexttf);
         /**
-         * Score Text
+         * Best Score Text
          */
         TextView bestScoreText = (TextView)findViewById(R.id.best);
         bestScoreText.setHeight(screenHeight/8);
         bestScoreText.setWidth(screenWidth/3);
+        bestScoreText.setTypeface(scoretf);
         bestScoreText.setText(String.valueOf(highScore));
         TextView bestScore = (TextView)findViewById(R.id.bestScore);
         bestScore.setHeight(screenHeight/8);
         bestScore.setWidth(screenWidth/3);
+        bestScore.setTypeface(scoreTexttf);
         /**
          * Start Button
          */
         startGame = (ImageButton)findViewById(R.id.start);
         /**
+         * Share button
+         */
+        share = (Button)findViewById(R.id.share);
+        share.setVisibility(View.INVISIBLE);
+        Typeface sharetf = Typeface.createFromAsset(getAssets(),
+                "Ubuntu-B.ttf");
+        share.setTypeface(sharetf);
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View v) {
+                Share();
+            }
+        });
+        /**
          * Button Answer Left
          */
+        Typeface answertf = Typeface.createFromAsset(getAssets(),
+                "Ubuntu-C.ttf");
+
+        scoreText.setTypeface(scoreTexttf);
         buttonLeft = (Button)findViewById(R.id.answerLeft);
         buttonLeft.setWidth(screenWidth/2);
         buttonLeft.setHeight(screenHeight/4);
+        buttonLeft.setTypeface(answertf);
         buttonLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
@@ -213,6 +248,7 @@ public class Game extends Activity {
         buttonRight = (Button)findViewById(R.id.answerRight);
         buttonRight.setWidth(screenWidth/2);
         buttonRight.setHeight(screenHeight/4);
+        buttonRight.setTypeface(answertf);
         buttonRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
@@ -238,6 +274,49 @@ public class Game extends Activity {
         });
     }
 
+    private void Connect () {
+
+    }
+
+    private void Share () {
+        /**
+         * Take screenshot
+         */
+        Bitmap bitmap;
+        View v = getWindow().getDecorView();
+        v.setDrawingCacheEnabled(true);
+        bitmap = Bitmap.createBitmap(v.getDrawingCache());
+        v.setDrawingCacheEnabled(false);
+
+        OutputStream fout = null;
+        File imageFile = new File(getExternalFilesDir(ACCESSIBILITY_SERVICE),"share.png");
+
+        try {
+            fout = new FileOutputStream(imageFile);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 90, fout);
+            fout.flush();
+            fout.close();
+
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        /**
+         * Share
+         */
+        File filePath = new File (getExternalFilesDir(ACCESSIBILITY_SERVICE),"share.png");
+        Intent shareIntent = new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND);
+        shareIntent.putExtra(Intent.EXTRA_TEXT, "My score");
+        shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(filePath));  //optional//use this when you want to send an image
+        shareIntent.setType("image/jpeg");
+        shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        startActivity(Intent.createChooser(shareIntent, "send"));
+    }
+
     private void doStuff () {
         time--;
         timerText.setText(String.valueOf(time));
@@ -246,6 +325,7 @@ public class Game extends Activity {
     private void startGame () {
         inGame = true;
         gameOver.setVisibility(View.INVISIBLE);
+        share.setVisibility(View.INVISIBLE);
         win = false;
         time = TimeLimit;
         score = 0;
@@ -273,6 +353,7 @@ public class Game extends Activity {
         inGame = false;
         handler.removeCallbacks(runnable);
         gameOver.setVisibility(View.VISIBLE);
+        share.setVisibility(View.VISIBLE);
         if(win){
 
         }else{
@@ -283,7 +364,7 @@ public class Game extends Activity {
             TextView highScoreText = (TextView)findViewById(R.id.best);
             highScoreText.setText(String.valueOf(highScore));
             File file = new File(getExternalFilesDir(ACCESSIBILITY_SERVICE),"score.ciw");
-            FileOutputStream fileOutputStream = null;
+            FileOutputStream fileOutputStream;
             try {
                 fileOutputStream = new FileOutputStream(file);
                 fileOutputStream.write(score);
@@ -339,10 +420,7 @@ public class Game extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        return id == R.id.action_settings || super.onOptionsItemSelected(item);
     }
 
 }
