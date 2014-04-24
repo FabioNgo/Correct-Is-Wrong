@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="fabio.correctiswrong.main.Main"
+    tools:context = "fabio.correctiswrong.main.Main"
     android:background="#ff313841">
 
     <ImageView
@@ -31,11 +31,30 @@
         android:includeFontPadding="false"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/instruction"
-        android:id="@+id/textView"
+        android:id="@+id/instruction"
         android:layout_marginTop="95dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:padding="20dp"
         android:textAlignment="gravity"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/leaderboard"
+        android:layout_above="@+id/newGame"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/leaderboard"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="I need your help to enrich questions database. Please tap here"
+        android:id="@+id/textView2"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>

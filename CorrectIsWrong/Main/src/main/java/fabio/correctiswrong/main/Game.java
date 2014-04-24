@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -274,10 +273,6 @@ public class Game extends Activity {
         });
     }
 
-    private void Connect () {
-
-    }
-
     private void Share () {
         /**
          * Take screenshot
@@ -288,7 +283,7 @@ public class Game extends Activity {
         bitmap = Bitmap.createBitmap(v.getDrawingCache());
         v.setDrawingCacheEnabled(false);
 
-        OutputStream fout = null;
+        OutputStream fout;
         File imageFile = new File(getExternalFilesDir(ACCESSIBILITY_SERVICE),"share.png");
 
         try {
@@ -328,6 +323,7 @@ public class Game extends Activity {
         share.setVisibility(View.INVISIBLE);
         win = false;
         time = TimeLimit;
+        timerText.setText(String.valueOf(time));
         score = 0;
         TextView scoreText = (TextView)findViewById(R.id.score);
         scoreText.setText(String.valueOf(score));
@@ -354,11 +350,6 @@ public class Game extends Activity {
         handler.removeCallbacks(runnable);
         gameOver.setVisibility(View.VISIBLE);
         share.setVisibility(View.VISIBLE);
-        if(win){
-
-        }else{
-
-        }
         if(highScore<score){
             highScore = score;
             TextView highScoreText = (TextView)findViewById(R.id.best);
@@ -379,7 +370,11 @@ public class Game extends Activity {
 
     private void nextQuestion () {
         score++;
+
         time = TimeLimit;
+        timerText.setText(String.valueOf(time));
+        handler.removeCallbacks(runnable);
+        runnable.run();
         TextView scoreText = (TextView)findViewById(R.id.score);
         scoreText.setText(String.valueOf(score));
 
@@ -387,9 +382,8 @@ public class Game extends Activity {
         try {
              cur = questions.get(current);
         }catch (Exception e){
-            win = true;
-            endGame();
-            return;
+            current = 0;
+            cur = questions.get(current);
         }
         TextView question = (TextView)findViewById(R.id.QuestionContent);
         question.setText(cur.content);
