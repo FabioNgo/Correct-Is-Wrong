@@ -53,7 +53,7 @@ public class Game extends Activity {
 
     public Game () {
 
-        TimeLimit = 2;
+        TimeLimit = 4;
         time = TimeLimit;
         inGame = false;
         left = false;

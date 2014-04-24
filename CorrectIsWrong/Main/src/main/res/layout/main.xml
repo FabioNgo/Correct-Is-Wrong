@@ -6,23 +6,22 @@
     android:background="#ff313841">
 
     <ImageView
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/imageView"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/backgroundmain"/>
+        android:scaleType="fitXY"
+        android:src="@drawable/backgroundmain"
+        android:layout_alignParentLeft="true"/>
 
     <ImageButton
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/newGame"
         android:src="@drawable/start"
-
         android:background="#00ff0003"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="54dp"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -38,13 +37,7 @@
         android:padding="20dp"
         android:textAlignment="gravity"/>
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/leaderboard"
-        android:layout_above="@+id/newGame"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/leaderboard"/>
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -53,8 +46,17 @@
         android:text="I need your help to enrich questions database. Please tap here"
         android:id="@+id/textView2"
         android:gravity="center"
+
         android:includeFontPadding="false"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/leaderboard"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="#00000000"/>
 
 </RelativeLayout>
