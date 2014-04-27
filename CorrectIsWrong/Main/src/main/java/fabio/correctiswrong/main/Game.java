@@ -10,7 +10,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -156,7 +155,6 @@ public class Game extends Activity {
             }
             bufferedReader.close();
         } catch (IOException e) {
-            Log.e("tag", "Fail Open QuestionBank");
         }
         /**
          * GameOver

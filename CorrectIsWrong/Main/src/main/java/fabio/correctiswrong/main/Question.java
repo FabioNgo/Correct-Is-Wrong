@@ -18,7 +18,6 @@ public class Question {
             correct = temp[1];
             wrong = temp[2];
         }else{
-            Log.e("tag", "Cannot create Question");
         }
     }
     public String toString(){
