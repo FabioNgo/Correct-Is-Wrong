@@ -7,8 +7,8 @@
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="modules">
           <set>
-            <option value="G:\GitHub\Correct-Is-Wrong\CorrectIsWrong" />
-            <option value="G:\GitHub\Correct-Is-Wrong\CorrectIsWrong\Main" />
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/Main" />
           </set>
         </option>
       </GradleProjectSettings>

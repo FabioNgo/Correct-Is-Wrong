@@ -11,13 +11,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -48,7 +47,6 @@ public class Game extends Activity {
     int TimeLimit;
     Runnable runnable;
     Handler handler;
-    boolean win;
     TextView timerText;
     TextView question;
     TextView gameOver;
@@ -56,21 +54,21 @@ public class Game extends Activity {
     int screenWidth;
     Button share;
 
-    public Game () {
+    public void initialize () {
 
-        TimeLimit = 4;
+        TimeLimit = 2;
         time = TimeLimit;
         inGame = false;
         left = false;
         highScore = 0;
         score = 0;
         current = 0;
-        win = false;
 
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        initialize();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game);
         /**
@@ -95,16 +93,23 @@ public class Game extends Activity {
         runnable = new Runnable() {
             public void run() {
                     doStuff();
-                if(time >0) {
+                if(time >=0) {
                     handler.postDelayed(this, 1000);
                 }
-                if(time <= 0){
+                if(time < 0){
                     handler.removeCallbacks(runnable);
                     endGame();
                 }
 
+
+            }
+            private void doStuff () {
+
+                timerText.setText(String.valueOf(time));
+                time--;
             }
         };
+
         /**
          * Import Highscore from file
          */
@@ -169,6 +174,7 @@ public class Game extends Activity {
          */
         question = (TextView)findViewById(R.id.QuestionContent);
         question.setHeight(screenHeight/4);
+        question.setTextSize(TypedValue.COMPLEX_UNIT_PX,screenHeight/16);
         Typeface questiontf = Typeface.createFromAsset(getAssets(),
                 "Ubuntu-B.ttf");
 
@@ -213,6 +219,7 @@ public class Game extends Activity {
         startGame.setImageBitmap(scaledBitmap);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(size,size);
         params.addRule(RelativeLayout.CENTER_IN_PARENT);
+        startGame.setLayoutParams(params);
         startGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
@@ -254,7 +261,6 @@ public class Game extends Activity {
                         nextQuestion();
 
                     }else{
-                        win = false;
                         endGame();
                     }
                 }
@@ -276,7 +282,6 @@ public class Game extends Activity {
                     if(left){
                         nextQuestion();
                     }else{
-                        win =false;
                         endGame();
                     }
                 }
@@ -325,16 +330,13 @@ public class Game extends Activity {
         startActivity(Intent.createChooser(shareIntent, "send"));
     }
 
-    private void doStuff () {
-        time--;
-        timerText.setText(String.valueOf(time));
-    }
+
 
     private void startGame () {
+        startGame.setVisibility(View.INVISIBLE);
         inGame = true;
         gameOver.setVisibility(View.INVISIBLE);
         share.setVisibility(View.INVISIBLE);
-        win = false;
         time = TimeLimit;
         timerText.setText(String.valueOf(time));
         score = 0;
@@ -360,6 +362,7 @@ public class Game extends Activity {
 
     private void endGame () {
         inGame = false;
+        startGame.setVisibility(View.VISIBLE);
         handler.removeCallbacks(runnable);
         gameOver.setVisibility(View.VISIBLE);
         share.setVisibility(View.VISIBLE);
@@ -384,9 +387,10 @@ public class Game extends Activity {
     private void nextQuestion () {
         score++;
 
+
+        handler.removeCallbacks(runnable);
         time = TimeLimit;
         timerText.setText(String.valueOf(time));
-        handler.removeCallbacks(runnable);
         runnable.run();
         TextView scoreText = (TextView)findViewById(R.id.score);
         scoreText.setText(String.valueOf(score));

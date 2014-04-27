@@ -5,6 +5,7 @@ import android.util.Log;
 /**
  * Created by Fabio Ngo on 4/21/2014.
  */
+@SuppressWarnings ("DefaultFileTemplate")
 public class Question {
     String correct;
     String wrong;

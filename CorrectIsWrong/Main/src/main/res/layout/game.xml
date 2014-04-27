@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/QuestionContent"
-        android:textSize="40dp"
+        android:textSize="30dp"
         android:gravity="center"
         android:includeFontPadding="false"
         android:layout_below="@+id/time"

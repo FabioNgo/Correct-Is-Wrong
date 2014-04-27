@@ -6,10 +6,9 @@
     android:background="#ff313841">
 
     <ImageView
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView"
-        android:scaleType="fitXY"
+        android:id="@+id/background"
         android:src="@drawable/backgroundmain"
         android:layout_alignParentLeft="true"/>
 
@@ -24,14 +23,14 @@
         android:layout_marginBottom="50dp"/>
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:includeFontPadding="false"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="@string/instruction"
         android:id="@+id/instruction"
-        android:layout_marginTop="95dp"
+        android:layout_marginTop="50dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:padding="20dp"
@@ -58,5 +57,14 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:background="#00000000"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Fabio Ngo - 2014"
+        android:id="@+id/textView"
+        android:layout_alignParentTop="false"
+        android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>
