@@ -1,5 +1,11 @@
 package fabio.correctiswrong.main;
 
+import com.google.android.gms.appstate.AppStateManager;
+import com.google.android.gms.common.api.*;
+import com.google.android.gms.games.Games;
+import com.google.android.gms.plus.Plus;
+import com.google.android.gms.plus.PlusClient;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -52,6 +58,10 @@ public class Game extends Activity {
     int screenHeight;
     int screenWidth;
     Button share;
+    boolean mExplicitSignOut = false;
+    boolean mInSignInFlow = false; // set to true when you're in the middle of the
+    // sign in flow, to know you should not attempt
+    // to connect on onStart()
 
     public void initialize () {
 
@@ -63,6 +73,8 @@ public class Game extends Activity {
         score = 0;
         current = 0;
 
+
+
     }
 
     @Override
@@ -70,6 +82,10 @@ public class Game extends Activity {
         initialize();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game);
+        /**
+         * GOOGLE API
+         */
+
         /**
          *Get Screen Attributes
          *
@@ -237,7 +253,10 @@ public class Game extends Activity {
         share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
-                Share();
+                try {
+                    Share();
+                } catch (IOException e) {
+                }
             }
         });
         /**
@@ -288,8 +307,14 @@ public class Game extends Activity {
             }
         });
     }
-
-    private void Share () {
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (!mInSignInFlow && !mExplicitSignOut) {
+            // auto sign in
+        }
+    }
+    private void Share () throws IOException {
         /**
          * Take screenshot
          */
@@ -302,19 +327,13 @@ public class Game extends Activity {
         OutputStream fout;
         File imageFile = new File(getExternalFilesDir(ACCESSIBILITY_SERVICE),"share.png");
 
-        try {
+
             fout = new FileOutputStream(imageFile);
             bitmap.compress(Bitmap.CompressFormat.PNG, 90, fout);
             fout.flush();
             fout.close();
 
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
+
         /**
          * Share
          */
@@ -366,6 +385,7 @@ public class Game extends Activity {
         share.setVisibility(View.VISIBLE);
         if(highScore<score){
             highScore = score;
+            //Games.Leaderboards.submitScore(mClient, getResources().getString(R.string.leaderboardid), highScore);
             TextView highScoreText = (TextView)findViewById(R.id.best);
             highScoreText.setText(String.valueOf(highScore));
             File file = new File(getExternalFilesDir(ACCESSIBILITY_SERVICE),"score.ciw");
@@ -374,9 +394,9 @@ public class Game extends Activity {
                 fileOutputStream = new FileOutputStream(file);
                 fileOutputStream.write(score);
             } catch (FileNotFoundException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             } catch (IOException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
 
         }
