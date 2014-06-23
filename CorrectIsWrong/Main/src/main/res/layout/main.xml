@@ -42,7 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="I need your help to enrich questions database. Please tap here"
+        android:text="@string/bottom"
         android:id="@+id/textView2"
         android:gravity="center"
 

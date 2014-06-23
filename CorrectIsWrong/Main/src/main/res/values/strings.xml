@@ -5,9 +5,11 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_game">Game</string>
-    <string name="instruction">Instruction:
-        You need to choose the wrong answer to go to another question.
-        Otherwise, you lose.
+    <string name="instruction">Hướng dẫn:
+        Bạn cần phải chọn đáp án sai cho mỗi câu hỏi để có thể đến được câu hỏi tiếp theo
+    </string>
+    <string name="bottom">
+        Mình cần các bạn giúp mình bổ sung các câu hỏi để trò chơi trở nên phong phú hơn. Nhấn vào đây
     </string>
     <string name="leaderboardid">CgkItO3B7vQGEAIQBg</string>
 </resources>
