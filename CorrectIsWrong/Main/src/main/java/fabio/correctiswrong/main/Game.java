@@ -1,4 +1,4 @@
-package ngo.game.correctiswrong;
+package fabio.correctiswrong.main;
 
 
 import android.app.Activity;

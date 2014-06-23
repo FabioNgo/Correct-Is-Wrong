@@ -1,4 +1,4 @@
-package ngo.game.correctiswrong;
+package fabio.correctiswrong.main;
 
 /**
  * Created by Fabio Ngo on 4/21/2014.

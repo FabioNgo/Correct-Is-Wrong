@@ -1,7 +1,7 @@
 /**
  *
  */
-package ngo.game.correctiswrong;
+package fabio.correctiswrong.main;
 
 import android.content.Context;
 import android.database.Cursor;
