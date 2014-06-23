@@ -1,7 +1,6 @@
 package ngo.game.correctiswrong;
 
 
-import android.os.CountDownTimer;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -10,6 +9,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
@@ -20,21 +20,15 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.Vector;
 
 
 public class Game extends Activity {
@@ -58,6 +52,7 @@ public class Game extends Activity {
     Button share;
     DatabaseHelper db;
     CountDownTimer timer;
+
     public void initialize () {
 
         TimeLimit = 1000;
@@ -69,11 +64,10 @@ public class Game extends Activity {
         current = 0;
 
 
-
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate (Bundle savedInstanceState) {
         initialize();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game);
@@ -87,7 +81,7 @@ public class Game extends Activity {
         /**
          * Initialize Timer
          */
-        timer = new CountDownTimer(TimeLimit,50) {
+        timer = new CountDownTimer(TimeLimit, 50) {
             @Override
             public void onTick (long millisUntilFinished) {
                 timerText.setText("" + millisUntilFinished / 1000.0);
@@ -111,18 +105,18 @@ public class Game extends Activity {
         /**
          * Timer
          */
-        timerText = (TextView)findViewById(R.id.time);
+        timerText = (TextView) findViewById(R.id.time);
         Typeface timetf = Typeface.createFromAsset(getAssets(),
                 "hlcomibm.ttf");
 
         timerText.setTypeface(timetf);
-        timerText.setHeight(screenHeight/4);
+        timerText.setHeight(screenHeight / 4);
 
 
         /**
          * Import Highscore from file
          */
-        File file = new File(getExternalFilesDir(ACCESSIBILITY_SERVICE),"score.ciw");
+        File file = new File(getExternalFilesDir(ACCESSIBILITY_SERVICE), "score.ciw");
         try {
             FileInputStream fileInputStream = new FileInputStream(file);
             try {
@@ -161,8 +155,8 @@ public class Game extends Activity {
          * GameOver
          *
          */
-        gameOver = (TextView)findViewById(R.id.gameOver);
-        gameOver.setHeight(3*screenHeight/4);
+        gameOver = (TextView) findViewById(R.id.gameOver);
+        gameOver.setHeight(3 * screenHeight / 4);
         gameOver.setVisibility(View.INVISIBLE);
         Typeface gameOvertf = Typeface.createFromAsset(getAssets(),
                 "seguibl.ttf");
@@ -171,20 +165,20 @@ public class Game extends Activity {
         /**
          * Question Text
          */
-        question = (TextView)findViewById(R.id.QuestionContent);
+        question = (TextView) findViewById(R.id.QuestionContent);
         question.setHeight(screenHeight / 4);
-        question.setTextSize(TypedValue.COMPLEX_UNIT_PX,screenHeight/20);
+        question.setTextSize(TypedValue.COMPLEX_UNIT_PX, screenHeight / 20);
         /**
          * Score Text
          */
-        TextView scoreText = (TextView)findViewById(R.id.score);
+        TextView scoreText = (TextView) findViewById(R.id.score);
         scoreText.setHeight(screenHeight / 8);
         scoreText.setWidth(screenWidth / 3);
         Typeface scoretf = Typeface.createFromAsset(getAssets(),
                 "ostrich-regular.ttf");
         scoreText.setTypeface(scoretf);
 
-        TextView newScore = (TextView)findViewById(R.id.newScore);
+        TextView newScore = (TextView) findViewById(R.id.newScore);
         newScore.setHeight(screenHeight / 8);
         newScore.setWidth(screenWidth / 3);
         Typeface scoreTexttf = Typeface.createFromAsset(getAssets(),
@@ -193,26 +187,26 @@ public class Game extends Activity {
         /**
          * Best Score Text
          */
-        TextView bestScoreText = (TextView)findViewById(R.id.best);
+        TextView bestScoreText = (TextView) findViewById(R.id.best);
         bestScoreText.setHeight(screenHeight / 8);
-        bestScoreText.setWidth(screenWidth/3);
+        bestScoreText.setWidth(screenWidth / 3);
         bestScoreText.setTypeface(scoretf);
         bestScoreText.setText(String.valueOf(highScore));
-        TextView bestScore = (TextView)findViewById(R.id.bestScore);
+        TextView bestScore = (TextView) findViewById(R.id.bestScore);
         bestScore.setHeight(screenHeight / 8);
         bestScore.setWidth(screenWidth / 3);
         bestScore.setTypeface(scoreTexttf);
         /**
          * Start Button
          */
-        startGame = (ImageView)findViewById(R.id.start);
+        startGame = (ImageView) findViewById(R.id.start);
         Drawable drawable = startGame.getDrawable();
-        Bitmap bitmap = ((BitmapDrawable)drawable).getBitmap();
-        int size = (int)(screenWidth*(0.617-0.417));
-        Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap,size,size,true);
+        Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+        int size = (int) (screenWidth * (0.617 - 0.417));
+        Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, size, size, true);
 
         startGame.setImageBitmap(scaledBitmap);
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(size,size);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(size, size);
         params.addRule(RelativeLayout.CENTER_IN_PARENT);
         startGame.setLayoutParams(params);
         startGame.setOnClickListener(new View.OnClickListener() {
@@ -226,7 +220,7 @@ public class Game extends Activity {
         /**
          * Share button
          */
-        share = (Button)findViewById(R.id.share);
+        share = (Button) findViewById(R.id.share);
         share.setVisibility(View.INVISIBLE);
         Typeface sharetf = Typeface.createFromAsset(getAssets(),
                 "Ubuntu-B.ttf");
@@ -243,17 +237,17 @@ public class Game extends Activity {
         /**
          * Button Answer Left
          */
-        buttonLeft = (Button)findViewById(R.id.answerLeft);
-        buttonLeft.setWidth(screenWidth/2);
+        buttonLeft = (Button) findViewById(R.id.answerLeft);
+        buttonLeft.setWidth(screenWidth / 2);
         buttonLeft.setHeight(screenHeight / 4);
         buttonLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
-                if(inGame){
-                    if(!left){
+                if (inGame) {
+                    if (!left) {
                         nextQuestion();
 
-                    }else{
+                    } else {
                         endGame();
                     }
                 }
@@ -263,20 +257,20 @@ public class Game extends Activity {
         });
         //TextView ansL = (TextView)findViewById(R.id.)
 
-        buttonLeft.setTextSize(TypedValue.COMPLEX_UNIT_PX,screenHeight/20);
+        buttonLeft.setTextSize(TypedValue.COMPLEX_UNIT_PX, screenHeight / 20);
         /**
          * Button Answer Right
          */
-        buttonRight = (Button)findViewById(R.id.answerRight);
-        buttonRight.setWidth(screenWidth/2);
-        buttonRight.setHeight(screenHeight/4);
+        buttonRight = (Button) findViewById(R.id.answerRight);
+        buttonRight.setWidth(screenWidth / 2);
+        buttonRight.setHeight(screenHeight / 4);
         buttonRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View v) {
-                if(inGame) {
-                    if(left){
+                if (inGame) {
+                    if (left) {
                         nextQuestion();
-                    }else{
+                    } else {
                         endGame();
                     }
                 }
@@ -284,7 +278,7 @@ public class Game extends Activity {
 
             }
         });
-        buttonRight.setTextSize(TypedValue.COMPLEX_UNIT_PX,screenHeight/20);
+        buttonRight.setTextSize(TypedValue.COMPLEX_UNIT_PX, screenHeight / 20);
     }
 
     private void Share () throws IOException {
@@ -298,19 +292,19 @@ public class Game extends Activity {
         v.setDrawingCacheEnabled(false);
 
         OutputStream fout;
-        File imageFile = new File(getExternalFilesDir(ACCESSIBILITY_SERVICE),"share.png");
+        File imageFile = new File(getExternalFilesDir(ACCESSIBILITY_SERVICE), "share.png");
 
 
-            fout = new FileOutputStream(imageFile);
-            bitmap.compress(Bitmap.CompressFormat.PNG, 90, fout);
-            fout.flush();
-            fout.close();
+        fout = new FileOutputStream(imageFile);
+        bitmap.compress(Bitmap.CompressFormat.PNG, 90, fout);
+        fout.flush();
+        fout.close();
 
 
         /**
          * Share
          */
-        File filePath = new File (getExternalFilesDir(ACCESSIBILITY_SERVICE),"share.png");
+        File filePath = new File(getExternalFilesDir(ACCESSIBILITY_SERVICE), "share.png");
         Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);
         shareIntent.putExtra(Intent.EXTRA_TEXT, "My score");
@@ -321,7 +315,6 @@ public class Game extends Activity {
     }
 
 
-
     private void startGame () {
         startGame.setVisibility(View.INVISIBLE);
         inGame = true;
@@ -330,19 +323,19 @@ public class Game extends Activity {
         timer.start();
         timerText.setText(String.valueOf(time));
         score = 0;
-        TextView scoreText = (TextView)findViewById(R.id.score);
+        TextView scoreText = (TextView) findViewById(R.id.score);
         scoreText.setText(String.valueOf(score));
         current = 0;
         Collections.shuffle(questions);
         Question cur = questions.get(current);
-        TextView question = (TextView)findViewById(R.id.QuestionContent);
+        TextView question = (TextView) findViewById(R.id.QuestionContent);
         question.setText(cur.question);
         Random random = new Random();
         left = random.nextBoolean();
-        if(left){
+        if (left) {
             buttonLeft.setText(cur.correct);
             buttonRight.setText(cur.wrong);
-        }else{
+        } else {
             buttonLeft.setText(cur.wrong);
             buttonRight.setText(cur.correct);
         }
@@ -356,12 +349,12 @@ public class Game extends Activity {
         timer.cancel();
         gameOver.setVisibility(View.VISIBLE);
         share.setVisibility(View.VISIBLE);
-        if(highScore<score){
+        if (highScore < score) {
             highScore = score;
             //Games.Leaderboards.submitScore(mClient, getResources().getString(R.string.leaderboardid), highScore);
-            TextView highScoreText = (TextView)findViewById(R.id.best);
+            TextView highScoreText = (TextView) findViewById(R.id.best);
             highScoreText.setText(String.valueOf(highScore));
-            File file = new File(getExternalFilesDir(ACCESSIBILITY_SERVICE),"score.ciw");
+            File file = new File(getExternalFilesDir(ACCESSIBILITY_SERVICE), "score.ciw");
             FileOutputStream fileOutputStream;
             try {
                 fileOutputStream = new FileOutputStream(file);
@@ -380,24 +373,24 @@ public class Game extends Activity {
 
 
         timer.start();
-        TextView scoreText = (TextView)findViewById(R.id.score);
+        TextView scoreText = (TextView) findViewById(R.id.score);
         scoreText.setText(String.valueOf(score));
 
         Question cur;
         try {
-             cur = questions.get(current);
-        }catch (Exception e){
+            cur = questions.get(current);
+        } catch (Exception e) {
             current = 0;
             cur = questions.get(current);
         }
-        TextView question = (TextView)findViewById(R.id.QuestionContent);
+        TextView question = (TextView) findViewById(R.id.QuestionContent);
         question.setText(cur.question);
         Random random = new Random();
         left = random.nextBoolean();
-        if(left){
+        if (left) {
             buttonLeft.setText(cur.correct);
             buttonRight.setText(cur.wrong);
-        }else{
+        } else {
             buttonLeft.setText(cur.wrong);
             buttonRight.setText(cur.correct);
         }
@@ -405,7 +398,7 @@ public class Game extends Activity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected (MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.

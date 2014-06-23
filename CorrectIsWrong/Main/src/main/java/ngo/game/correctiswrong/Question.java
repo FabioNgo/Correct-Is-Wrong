@@ -1,7 +1,5 @@
 package ngo.game.correctiswrong;
 
-import android.util.Log;
-
 /**
  * Created by Fabio Ngo on 4/21/2014.
  */
@@ -12,13 +10,14 @@ public class Question {
     String wrong;
     String question;
 
-    public Question(String id, String question, String correct, String wrong){
+    public Question (String id, String question, String correct, String wrong) {
         this.id = id;
         this.question = question;
         this.correct = correct;
         this.wrong = wrong;
     }
-    public String toString(){
-        return question+"_" + correct + "_" + wrong;
+
+    public String toString () {
+        return question + "_" + correct + "_" + wrong;
     }
 }

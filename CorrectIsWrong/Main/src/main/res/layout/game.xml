@@ -1,137 +1,138 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="fabio.correctiswrong.game.Main"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="fabio.correctiswrong.game.Main"
     >
 
     <ImageView
+        android:id="@+id/imageView"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/imageView"
-        android:src="@drawable/backgroundgame"
+        android:layout_alignParentRight="false"
         android:scaleType="fitXY"
-        android:layout_alignParentRight="false"/>
+        android:src="@drawable/backgroundgame"/>
 
     <TextView
+        android:id="@+id/QuestionContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/QuestionContent"
-        android:textSize="30dp"
+        android:layout_below="@+id/time"
+        android:layout_centerHorizontal="true"
         android:gravity="center"
         android:includeFontPadding="false"
-        android:layout_below="@+id/time"
-        android:layout_centerHorizontal="true"/>
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="30dp"/>
 
     <Button
+        android:id="@+id/answerLeft"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/answerLeft"
+        android:layout_below="@+id/QuestionContent"
         android:background="#00000000"
         android:textColor="#ffffffff"
-        android:textSize="50dp"
-        android:layout_below="@+id/QuestionContent"/>
+        android:textSize="50dp"/>
 
     <Button
+        android:id="@+id/answerRight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/answerRight"
-        android:textColor="#ffffffff"
+        android:layout_below="@+id/QuestionContent"
         android:layout_toRightOf="@+id/answerLeft"
         android:background="#00000000"
-        android:layout_below="@+id/QuestionContent"
+        android:textColor="#ffffffff"
         android:textSize="50dp"/>
 
     <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/time"
-        android:gravity="center"
-        android:includeFontPadding="false"
-        android:textStyle="bold"
-        android:textSize="100dp"
-        android:textColor="#FFFFFFFF"/>
-
-    <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Game Over"
-        android:id="@+id/gameOver"
-        android:textStyle="bold"
-        android:textSize="50dp"
         android:gravity="center"
         android:includeFontPadding="false"
-        android:layout_centerHorizontal="true"
-        android:background="#96000000"/>
+        android:textColor="#FFFFFFFF"
+        android:textSize="100dp"
+        android:textStyle="bold"/>
 
     <TextView
+        android:id="@+id/gameOver"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="#96000000"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:text="Game Over"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="50dp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/newScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="NEW"
-        android:id="@+id/newScore"
+        android:layout_alignParentLeft="true"
         android:layout_below="@+id/answerLeft"
         android:gravity="center"
-        android:textSize="50dp"
-        android:layout_alignParentLeft="true"/>
+        android:text="NEW"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="50dp"/>
 
     <TextView
+        android:id="@+id/score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/score"
-        android:textSize="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/newScore"
         android:gravity="center"
         android:includeFontPadding="false"
-        android:layout_below="@+id/newScore"
-        android:layout_alignParentLeft="true"/>
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="50dp"/>
+
     <TextView
+        android:id="@+id/bestScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="BEST"
-        android:id="@+id/bestScore"
+        android:layout_alignParentRight="true"
         android:layout_below="@+id/answerRight"
         android:gravity="center"
-        android:textSize="50dp"
-        android:layout_alignParentRight="true"/>
+        android:text="BEST"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="50dp"/>
 
     <TextView
+        android:id="@+id/best"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:id="@+id/best"
-        android:textSize="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/bestScore"
         android:gravity="center"
         android:includeFontPadding="false"
-        android:layout_below="@+id/bestScore"
-        android:layout_alignParentRight="true"/>
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="50dp"/>
 
     <ImageView
+        android:id="@+id/start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start Game"
-        android:id="@+id/start"
+        android:layout_below="@+id/answerLeft"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:adjustViewBounds="true"
         android:background="#00000000"
         android:src="@drawable/start"
-        android:adjustViewBounds="true"
-        android:textAlignment="gravity"
-        android:layout_below="@+id/answerLeft"
-        android:layout_marginTop="10dp"
-        android:layout_centerHorizontal="true"/>
+        android:text="Start Game"
+        android:textAlignment="gravity"/>
 
     <Button
+        android:id="@+id/share"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Share"
-        android:id="@+id/share"
         android:layout_below="@+id/start"
-        android:textSize="30dp"
-        android:background="#00f7fff5"
-        android:textColor="#ffffffff"
+        android:layout_centerHorizontal="true"
         android:layout_margin="10dp"
-        android:layout_centerHorizontal="true"/>
+        android:background="#00f7fff5"
+        android:text="Share"
+        android:textColor="#ffffffff"
+        android:textSize="30dp"/>
 
 </RelativeLayout>
