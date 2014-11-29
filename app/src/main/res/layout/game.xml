@@ -1,0 +1,138 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="fabio.correctiswrong.game.Main"
+    >
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentRight="false"
+        android:scaleType="fitXY"
+        android:src="@drawable/backgroundgame"/>
+
+    <TextView
+        android:id="@+id/QuestionContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/time"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="30dp"/>
+
+    <Button
+        android:id="@+id/answerLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/QuestionContent"
+        android:background="#00000000"
+        android:textColor="#ffffffff"
+        android:textSize="50dp"/>
+
+    <Button
+        android:id="@+id/answerRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/QuestionContent"
+        android:layout_toRightOf="@+id/answerLeft"
+        android:background="#00000000"
+        android:textColor="#ffffffff"
+        android:textSize="50dp"/>
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:textColor="#FFFFFFFF"
+        android:textSize="100dp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/gameOver"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="#96000000"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:text="Game Over"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="50dp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/newScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/answerLeft"
+        android:gravity="center"
+        android:text="NEW"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="50dp"/>
+
+    <TextView
+        android:id="@+id/score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/newScore"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="50dp"/>
+
+    <TextView
+        android:id="@+id/bestScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/answerRight"
+        android:gravity="center"
+        android:text="BEST"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="50dp"/>
+
+    <TextView
+        android:id="@+id/best"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/bestScore"
+        android:gravity="center"
+        android:includeFontPadding="false"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="50dp"/>
+
+    <ImageView
+        android:id="@+id/start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/answerLeft"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:adjustViewBounds="true"
+        android:background="#00000000"
+        android:src="@drawable/start"
+        android:text="Start Game"
+        android:textAlignment="gravity"/>
+
+    <Button
+        android:id="@+id/share"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/start"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp"
+        android:background="#00f7fff5"
+        android:text="Share"
+        android:textColor="#ffffffff"
+        android:textSize="30dp"/>
+
+</RelativeLayout>
