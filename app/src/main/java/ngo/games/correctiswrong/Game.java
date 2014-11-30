@@ -29,6 +29,8 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class Game extends Activity {
@@ -51,8 +53,8 @@ public class Game extends Activity {
     int screenWidth;
     Button share;
     DatabaseHelper db;
-    CountDownTimer timer;
-
+    CountDownTimer timer=null;
+    View rootView = null;
     public void initialize () {
 
         TimeLimit = 1000;
@@ -62,7 +64,6 @@ public class Game extends Activity {
         highScore = 0;
         score = 0;
         current = 0;
-
 
     }
 
@@ -322,24 +323,8 @@ public class Game extends Activity {
         share.setVisibility(View.INVISIBLE);
         timer.start();
         timerText.setText(String.valueOf(time));
-        score = 0;
-        TextView scoreText = (TextView) findViewById(R.id.score);
-        scoreText.setText(String.valueOf(score));
-        current = 0;
-        Collections.shuffle(questions);
-        Question cur = questions.get(current);
-        TextView question = (TextView) findViewById(R.id.QuestionContent);
-        question.setText(cur.question);
-        Random random = new Random();
-        left = random.nextBoolean();
-        if (left) {
-            buttonLeft.setText(cur.correct);
-            buttonRight.setText(cur.wrong);
-        } else {
-            buttonLeft.setText(cur.wrong);
-            buttonRight.setText(cur.correct);
-        }
-        current++;
+        score = -1;
+        nextQuestion();
     }
 
     private void endGame () {
@@ -369,10 +354,11 @@ public class Game extends Activity {
     }
 
     private void nextQuestion () {
+        timer.cancel();
         score++;
-
-
-        timer.start();
+        buttonLeft.setText("");
+        buttonRight.setText("");
+        timerText.setText(String.valueOf(""));
         TextView scoreText = (TextView) findViewById(R.id.score);
         scoreText.setText(String.valueOf(score));
 
@@ -385,16 +371,37 @@ public class Game extends Activity {
         }
         TextView question = (TextView) findViewById(R.id.QuestionContent);
         question.setText(cur.question);
-        Random random = new Random();
-        left = random.nextBoolean();
-        if (left) {
-            buttonLeft.setText(cur.correct);
-            buttonRight.setText(cur.wrong);
-        } else {
-            buttonLeft.setText(cur.wrong);
-            buttonRight.setText(cur.correct);
-        }
-        current++;
+        final Question finalCur = cur;
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                timer.start();
+                Random random = new Random();
+                left = random.nextBoolean();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (left) {
+                            buttonLeft.setText(finalCur.correct);
+                            buttonRight.setText(finalCur.wrong);
+                        } else {
+                            buttonLeft.setText(finalCur.wrong);
+                            buttonRight.setText(finalCur.correct);
+                        }
+                    }
+                });
+
+                current++;
+            }
+        };
+        Timer timer1 = new Timer();
+        timer1.schedule(task,1000);
+
+
+
+
+
+
     }
 
     
